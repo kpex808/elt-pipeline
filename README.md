@@ -32,6 +32,8 @@ The Action owns **extract + load**. Transform stays in Snowflake, not `CREATE OR
 
 Lag is a safety net. Refresh in the Action keeps the dashboard current after the cron.
 
+Walkthrough (screenshots + why ELT / DTs / two warehouses): [`docs/cad_elt_walkthrough.ipynb`](docs/cad_elt_walkthrough.ipynb).
+
 ## Local
 
 Python 3.12+, venv, `pip install -r requirements.txt`. Copy `.env.example` to `.env`. Dashboard: `python -m streamlit run src/app.py`. Credentials stay in `.env` / GitHub Actions secrets, not in git.
