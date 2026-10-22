@@ -32,7 +32,7 @@ The Action owns **extract + load**. Transform stays in Snowflake, not `CREATE OR
 
 Lag is a safety net. Refresh in the Action keeps the dashboard current after the cron.
 
-Walkthrough (screenshots + why ELT / DTs / two warehouses): [`docs/cad_elt_walkthrough.ipynb`](docs/cad_elt_walkthrough.ipynb).
+Walkthrough: [`docs/cad_elt_walkthrough.ipynb`](docs/cad_elt_walkthrough.ipynb) · PDF: [`docs/cad_elt_walkthrough.pdf`](docs/cad_elt_walkthrough.pdf).
 
 ## Local
 
