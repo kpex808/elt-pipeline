@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: cad
+    columns:
+      - name: designation
+        tests:
+          - not_null
+      - name: approach_at
+        tests:
+          - not_null
+      - name: dist_au
+        tests:
+          - not_null
+      - name: v_rel_kms
+        tests:
+          - not_null
+
+  - name: cad_flybys
+    columns:
+      - name: designation
+        tests:
+          - not_null
+      - name: closeness
+        tests:
+          - accepted_values:
+              values: ["very close", "close", "moderate"]
+
+  - name: cad_kpi
+    columns:
+      - name: n_approaches
+        tests:
+          - not_null
+      - name: min_dist_km
+        tests:
+          - not_null
+
+  - name: cad_by_day
+    columns:
+      - name: approach_day
+        tests:
+          - not_null
+          - unique
+      - name: n_approaches
+        tests:
+          - not_null

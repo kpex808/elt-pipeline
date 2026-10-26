@@ -1,0 +1,7 @@
+cad_duck:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/warehouse/cad/cad.duckdb
+      threads: 1

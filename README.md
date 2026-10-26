@@ -1,8 +1,11 @@
-# CAD ELT (Snowflake)
+# CAD ELT
 
 NASA/JPL **Close Approach Data** lists predicted times when near-Earth asteroids (and some comets) pass Earth: object name, time, miss distance (AU / km), relative speed.
 
-The public [CAD API](https://ssd-api.jpl.nasa.gov/doc/cad.html) returns that as JSON (`GET`). This project loads it into Snowflake: raw JSON in **Bronze**, flatten/marts as **Dynamic Tables** (Silver/Gold), Streamlit on **Gold**.
+The public [CAD API](https://ssd-api.jpl.nasa.gov/doc/cad.html) returns that as JSON (`GET`). Same extract, two transform backends:
+
+- **Path A — Snowflake:** Bronze JSON → Dynamic Tables (Silver/Gold) → Streamlit. GitHub Actions (Mondays). Trial / screenshots in the walkthrough.
+- **Path B — DuckDB + dbt:** same JSON → `load_cad_duckdb.py` → dbt models (`ref()`, tests). Runs locally, no cloud warehouse.
 
 It is an ephemeris table (calculated future/past flybys), not a live radar feed. A weekly run is enough.
 
@@ -36,4 +39,20 @@ Walkthrough: [`docs/cad_elt_walkthrough.ipynb`](docs/cad_elt_walkthrough.ipynb) 
 
 ## Local
 
-Python 3.12+, venv, `pip install -r requirements.txt`. Copy `.env.example` to `.env`. Dashboard: `python -m streamlit run src/app.py`. Credentials stay in `.env` / GitHub Actions secrets, not in git.
+Python 3.12+, venv, `pip install -r requirements.txt`.
+
+**Path A:** copy `.env.example` to `.env`. Dashboard: `python -m streamlit run src/app.py`. Credentials stay in `.env` / GitHub Actions secrets, not in git.
+
+**Path B (DuckDB + dbt):**
+
+```text
+python src/extract_cad_elt.py
+python src/load_cad_duckdb.py
+cd dbt
+dbt run --profiles-dir .
+dbt test --profiles-dir .
+dbt docs generate --profiles-dir .
+dbt docs serve --profiles-dir .
+```
+
+(`dbt.exe` from the venv Scripts folder on Windows.) DuckDB file is gitignored under `data/warehouse/`.
