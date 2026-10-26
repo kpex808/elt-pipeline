@@ -41,7 +41,7 @@ Walkthrough: [`docs/cad_elt_walkthrough.ipynb`](docs/cad_elt_walkthrough.ipynb) 
 
 Python 3.12+, venv, `pip install -r requirements.txt`.
 
-**Path A:** copy `.env.example` to `.env`. Dashboard: `python -m streamlit run src/app.py`. Credentials stay in `.env` / GitHub Actions secrets, not in git.
+**Path A:** copy `.env.example` to `.env` for the Snowflake load scripts and GitHub Actions. Dashboard: `python -m streamlit run src/app.py`. Credentials stay in `.env` / Actions secrets, not in git.
 
 **Path B (DuckDB + dbt):**
 
@@ -51,8 +51,7 @@ python src/load_cad_duckdb.py
 cd dbt
 dbt run --profiles-dir .
 dbt test --profiles-dir .
-dbt docs generate --profiles-dir .
-dbt docs serve --profiles-dir .
+python -m streamlit run src/app-dbt.py
 ```
 
-(`dbt.exe` from the venv Scripts folder on Windows.) DuckDB file is gitignored under `data/warehouse/`.
+(`dbt.exe` from the venv Scripts folder on Windows.) Streamlit reads DuckDB Gold. DuckDB file is gitignored under `data/warehouse/`.
